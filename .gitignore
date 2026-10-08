@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Environment files (keep .env.example)
+.env
+.env.*
+!.env.example
+
+# Build output
+frontend/build/
+
+# Logs and OS files
+npm-debug.log*
+.DS_Store

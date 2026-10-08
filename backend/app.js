@@ -20,17 +20,25 @@ app.use(cors({
 }));
 
 
+// Required settings come from backend/.env (see .env.example)
+for (const name of ['DB_USER', 'DB_PASSWORD', 'JWT_SECRET']) {
+  if (!process.env[name]) {
+    console.error(`Missing required environment variable ${name}. Copy backend/.env.example to backend/.env and fill it in.`);
+    process.exit(1);
+  }
+}
+
 // PostgreSQL connection pool
 const pool = new Pool({
-  user: process.env.DB_USER || 'sanskar',
+  user: process.env.DB_USER,
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'quick_commerce',
-  password: process.env.DB_PASSWORD || 'hatebitches1',
+  password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT || 5432,
 });
 
 // Secret key for JWT
-const JWT_SECRET = process.env.JWT_SECRET || 'quickcommerce-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware to authenticate JWT
 const authenticateToken = (req, res, next) => {
